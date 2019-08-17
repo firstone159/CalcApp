@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
-import kotlinx.android.synthetic.main.activity_second.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -22,10 +21,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val intent = Intent(this, SecondActivity::class.java)
-        startActivity(intent)
 
         val text1: String = editText1.getText().toString()
         val text2: String = editText2.getText().toString()
+
+        if(text1.equals("") || text2.equals("")) {
+            return
+        }
 
         val num1: Float = text1.toFloat()
         val num2: Float = text2.toFloat()
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         val result: Float = when (v?.id) {
-            R.id.button1 -> addition(num1, num2)
+            R.id.button1 ->addition(num1, num2)
             R.id.button2 -> subtraction(num1, num2)
             R.id.button3 -> multiplication(num1, num2)
             R.id.button4 -> division(num1, num2)
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         intent.putExtra("VALUE", result)
+
+        startActivity(intent)
 
     }
 }
